@@ -1,15 +1,17 @@
-package org.example;
+package org.example.repository;
+
+import org.example.model.Book;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class BooksDatabase {
+public class BookRepository {
 
     private List<Book> books;
 
-    public BooksDatabase() {
+    public BookRepository() {
         books = new ArrayList<>();
         initializeBooks();
     }
@@ -30,19 +32,18 @@ public class BooksDatabase {
     }
 
     // Method to add a book in system
-    public Book addBook(Integer bookId, String title, String author, String genre, Integer publicationYear, Integer availability) {
-        if (Objects.isNull(bookId) || Objects.isNull(title) || title.isEmpty() || Objects.isNull(author) || author.isEmpty()
-                || Objects.isNull(genre) || genre.isEmpty() || Objects.isNull(publicationYear) || Objects.isNull(availability)) {
+    public Book addBook(Book bookRequest) {
+        if (Objects.isNull(bookRequest.getTitle()) || bookRequest.getTitle().isEmpty() || Objects.isNull(bookRequest.getAuthor()) || bookRequest.getAuthor().isEmpty() || Objects.isNull(bookRequest.getGenre()) || bookRequest.getGenre().isEmpty()) {
             throw new RuntimeException("Invalid data");
         }
 
-        Optional<Book> existingBook = books.stream().filter(book -> book.getBookId() == bookId).findAny();
-        if(existingBook.isPresent()){
-            throw new RuntimeException("Book already exist for bookId: " + bookId);
+        Optional<Book> existingBook = books.stream().filter(book -> book.getBookId() == bookRequest.getBookId()).findAny();
+        if (existingBook.isPresent()) {
+            throw new RuntimeException("Book already exist for bookId: " + bookRequest.getBookId());
         }
 
-        books.add(new Book(bookId, title, author, genre, publicationYear, availability));
-        return getBookByBookId(bookId);
+        books.add(bookRequest);
+        return getBookByBookId(bookRequest.getBookId());
     }
 
     // Method to get book by bookId

@@ -1,19 +1,21 @@
 package example;
 
-import org.example.Book;
-import org.example.BooksDatabase;
+import org.example.model.Book;
+import org.example.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 
+import static example.BookTestData.getInValidBookRequest;
+import static example.BookTestData.getValidBookRequest;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BooksDatabaseTest {
+public class BookRepositoryTest {
 
     @Test
     void shouldBeAbleToAddBook() {
-        BooksDatabase booksDatabase = new BooksDatabase();
+        BookRepository bookRepository = new BookRepository();
 
-        Book book = booksDatabase.addBook(7, "Time Machine", "H.G Wells", "Classic", 1925, 4);
+        Book book = bookRepository.addBook(getValidBookRequest(7));
 
         assertEquals(7, book.getBookId());
         assertEquals("Time Machine", book.getTitle());
@@ -21,25 +23,25 @@ public class BooksDatabaseTest {
 
     @Test
     void shouldThrowExceptionIfInvalidData() {
-        BooksDatabase booksDatabase = new BooksDatabase();
+        BookRepository bookRepository = new BookRepository();
 
-        assertThatThrownBy(() -> booksDatabase.addBook(5, "", null, "Classic", 1925, 4)).isInstanceOf(
+        assertThatThrownBy(() -> bookRepository.addBook(getInValidBookRequest())).isInstanceOf(
                 RuntimeException.class).hasMessage("Invalid data");
     }
 
     @Test
     void shouldThrowExceptionIfBookAlreadyPresent() {
-        BooksDatabase booksDatabase = new BooksDatabase();
+        BookRepository bookRepository = new BookRepository();
 
-        assertThatThrownBy(() -> booksDatabase.addBook(5, "Time Machine", "H.G Wells", "Classic", 1925, 4)).isInstanceOf(
+        assertThatThrownBy(() -> bookRepository.addBook(getValidBookRequest(5))).isInstanceOf(
                 RuntimeException.class).hasMessage("Book already exist for bookId: 5");
     }
 
     @Test
     void shouldBeAbleToFetchBookIfPresent() {
-        BooksDatabase booksDatabase = new BooksDatabase();
+        BookRepository bookRepository = new BookRepository();
 
-        Book book = booksDatabase.getBookByBookId(5);
+        Book book = bookRepository.getBookByBookId(5);
 
         assertEquals(5, book.getBookId());
         assertEquals("Pride and Prejudice", book.getTitle());
@@ -47,9 +49,9 @@ public class BooksDatabaseTest {
 
     @Test
     void shouldThrowExceptionIfBookNotFound() {
-        BooksDatabase booksDatabase = new BooksDatabase();
+        BookRepository bookRepository = new BookRepository();
 
-        assertThatThrownBy(() -> booksDatabase.getBookByBookId(8)).isInstanceOf(
+        assertThatThrownBy(() -> bookRepository.getBookByBookId(8)).isInstanceOf(
                 RuntimeException.class).hasMessage("Book not found for bookId: 8");
     }
 

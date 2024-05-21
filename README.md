@@ -36,7 +36,8 @@ No matching books found.
 
 ## Extension 1:
 
-Implement a feature where users should be able to borrow books if available and save these borrowing details.
+Implement a feature where users should be able to borrow books if available and save these borrowing details. It should have below validations:
+Verify user is present in system and book is available.
 
 **Example 1**
 ```
@@ -53,7 +54,7 @@ Input:
 Enter userId: 10
 
 Output:
-User not found with userId: 10. (If user not present in memory data)
+User not found with userId: 10. (If user not present)
 ```
 **Example 3**
 ```
