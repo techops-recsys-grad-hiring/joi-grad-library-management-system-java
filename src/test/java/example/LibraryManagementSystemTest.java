@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class LibraryManagementSystemTest {
 
     private static LibraryManagementSystem libraryManagementSystem;
@@ -18,9 +20,9 @@ public class LibraryManagementSystemTest {
 
     @Test
     void shouldReturnBooksIfFoundOnSearchByTitle() {
-
+        List<Book> expectedBooks = List.of();
         List<Book> books = libraryManagementSystem.searchBooks("Harry Potter");
 
-        // add assert statements
+        assertThat(books).isEqualTo(expectedBooks);
     }
 }
