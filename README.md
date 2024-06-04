@@ -1,7 +1,9 @@
 # Library-Management-System
 
-## Base Problem:
-As a user, I should be able to search for books by title, author, or genre. Upon searching, the system should display a list of matching books along with their availability status.
+This is where you can start to get familiar with the problem and what you need to run it. This codebase is used during pairing session for JOI initiative. It's focused on identifying code smells, refactoring and testing legacy codebase while promoting conversations.
+
+## Problem Statement:
+We have an existing library management system application, with a small set of books and users details.
 
 ### Book Data Table:
 
@@ -15,89 +17,29 @@ As a user, I should be able to search for books by title, author, or genre. Upon
 | 6      | Pride and Prejudice                                     |     Jane Austen            |     Romance       |  1813       | 4            |
 | 7      | The Catcher in the Rye                                  |      J.D. Salinger           |   Coming-of-age         |   1951      | 0            |
 
-**Example 1**
-```
-Input:
-Search text: harry potter
+## Technology used
+* Java
+* Gradle - build tool
+* JUnit - unit testing framework
 
-Output:
-Matching Books:
-BookId: 1 | Title: Harry Potter and the Sorcerer's Stone | Availability: Available
-BookId: 2 | Title: Harry Potter and the Chamber of Secrets | Availability: Not Available
-```
-**Example 2**
-```
-Input:
-Search text: Rich dad
+## Before the interview
+Get familiar with the codebase! Make sure you have the necessary dependencies installed, and that you are able to run the tests.
 
-Output:
-No matching books found.
+## What you need to run it
+* [Java 1.8](https://adoptopenjdk.net/?variant=openjdk8)
+
+## Build
+```console
+./gradlew clean build
 ```
 
-## Extension 1:
-
-Implement a feature where users should be able to borrow books if available and save these borrowing details. It should have below validations:
-Verify user is present in system and book is available.
-
-**Example 1**
-```
-Input:
-Enter userId: 1
-Enter bookId you want to borrow: 3
-
-Output:
-Book borrowed successfully!
-```
-**Example 2**
-```
-Input:
-Enter userId: 10
-
-Output:
-User not found with userId: 10. (If user not present)
-```
-**Example 3**
-```
-Input:
-Enter userId: 1
-Enter bookId you want to borrow: 10
-
-Output:
-Failed to borrow the book. It may not be available or does not exist.
+## Run Tests
+```console
+./gradlew test
 ```
 
-## Extension 2:
-
-Implement a feature where users can calculate fine on return based on time elapsed since borrowing and book’s genre. The fine is applicable after 7 days from borrowing.
-
-### Fine rates per day for each book by genre:
-
-| Genre | Fine Rate per Day |
-|-------|-------------------|
-| 5     | Fantasy           |
-| 4     | Fiction           |
-| 3     | Classic           |
-| 2.5   | Romance           |
-| 3.5   | Coming-of-age     |
-| 2     | Other             |
-
-**Example 1**
-```
-Input:
-Enter userId: 1
-Enter bookId you borrowed: 3
-Enter return date of book in dd-mm-yyyy format:  12-02-2024
-
-Output:
-Fine for the book is ₹ 20
-```
-
-**Example 2**
-```
-Input:
-Enter userId: 1
-Enter bookId you borrowed: 5
-
-Output:
-Book with bookId : 5 was not borrowed by userId: 1
+## Run the Sample Application
+To understand how this library would be used you can check the main method in the LibraryManagementSystem class. If you want to see the results, run:
+```console
+./gradlew run
 ```
